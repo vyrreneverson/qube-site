@@ -221,18 +221,47 @@
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check if login session indicator or exact username is available
-            const savedUsername = localStorage.getItem('discord_username');
+<script>
+        async function loadDiscordUser() {
             const displayElement = document.getElementById('user-display');
-            
+
+            // 1. Check if we already looked up and saved the username before
+            const savedUsername = localStorage.getItem('discord_username');
             if (savedUsername) {
                 displayElement.textContent = `@${savedUsername}`;
-            } else if (localStorage.getItem('discord_logged_in') === 'true') {
+                return;
+            }
+
+            // 2. Parse the token from the URL hash bar fragment (Implicit Grant)
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const accessToken = fragment.get('access_token');
+
+            if (accessToken) {
+                try {
+                    // 3. Request user profile details directly from Discord using the token
+                    const response = await fetch('https://discord.com/api/users/@me', {
+                        headers: { Authorization: `Bearer ${accessToken}` }
+                    });
+                    const userData = await response.json();
+
+                    if (userData.username) {
+                        // 4. Save the real username in browser memory and update the text
+                        localStorage.setItem('discord_username', userData.username);
+                        displayElement.textContent = `@${userData.username}`;
+                        
+                        // Clean up the URL address bar to look tidy
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    }
+                } catch (err) {
+                    console.error("Failed to read user data from Discord API:", err);
+                }
+            } else {
+                // If no token is found in the URL, show Authorized as a fallback
                 displayElement.textContent = '@Authorized';
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDiscordUser);
     </script>
 
 </body>
