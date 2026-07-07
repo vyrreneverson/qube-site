@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qube Plus+ - Premium Plans</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 24px;
+        }
+
+        /* Ambient Glow Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(17, 174, 142, 0.12) 0%, rgba(13, 140, 114, 0.04) 50%, rgba(0, 49, 25, 0) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Pill-Shaped Top Navigation Bar */
+        header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 12px 32px;
+            max-width: 1200px;
+            width: calc(100% - 40px);
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #11ae8e;
+        }
+
+        .login-btn {
+            background-color: #171717;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #11ae8e;
+            border-color: #11ae8e;
+            box-shadow: 0 0 15px rgba(17, 174, 142, 0.4);
+        }
+
+        /* Main Premium Content */
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .premium-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .premium-title span {
+            color: #11ae8e;
+        }
+
+        .premium-subtitle {
+            font-size: 1.15rem;
+            color: #a0aec0;
+            max-width: 600px;
+            margin: 0 auto 60px auto;
+        }
+
+        /* Pricing Cards Container */
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .card {
+            background-color: #070707;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px 32px;
+            width: 340px;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card.featured {
+            border-color: #11ae8e;
+            background: linear-gradient(180deg, #070707 0%, #003119 100%);
+            box-shadow: 0 10px 30px rgba(17, 174, 142, 0.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #11ae8e;
+            color: #000000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-tier {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .card-price span {
+            font-size: 1rem;
+            color: #a0aec0;
+            font-weight: 400;
+            margin-left: 4px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+            flex: 1;
+        }
+
+        .feature-list li {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #11ae8e;
+            font-weight: bold;
+        }
+
+        .card.featured .feature-list li::before {
+            color: #ffffff;
+        }
+
+        .card-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-primary {
+            background-color: #11ae8e;
+            color: #ffffff;
+            border: 1px solid #11ae8e;
+            box-shadow: 0 4px 12px rgba(17, 174, 142, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #0d8c72;
+            border-color: #0d8c72;
+            box-shadow: 0 6px 18px rgba(13, 140, 114, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="qube.png" alt="Qube Logo" class="logo">
+            <span class="brand-name">qube</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html">Documentation</a>
+            <a href="template.html" class="active">Qube Plus+</a>
+            <a href="support.html">Support</a>
+        </nav>
+
+        <a href="#login" class="login-btn">Login</a>
+    </header>
+
+    <main>
+        <h1 class="premium-title">Upgrade to <span>Qube Plus+</span></h1>
+        <p class="premium-subtitle">Unlock advanced management tools, high-speed logging arrays, and deep configuration options built for large-scale operations.</p>
+
+        <div class="pricing-grid">
+            <div class="card">
+                <div class="card-tier">Standard</div>
+                <div class="card-price">$0<span>/mo</span></div>
+                <ul class="feature-list">
+                    <li>Core moderation suite</li>
+                    <li>Basic logging metrics</li>
+                    <li>Standard server limits</li>
+                    <li>Community support channels</li>
+                </ul>
+                <a href="#register" class="card-btn btn-secondary">Get Started</a>
+            </div>
+
+            <div class="card featured">
+                <div class="badge">Popular</div>
+                <div class="card-tier">Plus+ Pro</div>
+                <div class="card-price">$4.99<span>/mo</span></div>
+                <ul class="feature-list">
+                    <li>Everything in Standard</li>
+                    <li>Advanced automation routines</li>
+                    <li>Real-time database backups</li>
+                    <li>Extended log retention history</li>
+                    <li>Priority ticket response desk</li>
+                </ul>
+                <a href="#checkout" class="card-btn btn-primary">Upgrade Now</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

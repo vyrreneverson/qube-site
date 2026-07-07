@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducky - Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #050505; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .login-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 480px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+        .logo-img { width: 42px; height: 42px; object-fit: contain; }
+        .brand-name { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+        .login-card { background-color: #0b0b0b; border: 1px solid #161616; border-radius: 24px; padding: 40px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 28px; letter-spacing: -0.5px; }
+        .tos-box { background-color: #060606; border: 1px solid #121212; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 12px; text-align: left; margin-bottom: 24px; font-size: 0.9rem; color: #a0aec0; }
+        .tos-box input[type="checkbox"] { width: 18px; height: 18px; accent-color: #eab308; cursor: pointer; }
+        .tos-box a { color: #ffffff; text-decoration: underline; }
+        .discord-btn { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #5865F2; color: #ffffff; text-decoration: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 600; font-size: 1rem; border: none; cursor: pointer; transition: background-color 0.2s; }
+        .discord-btn:hover { background-color: #4752C4; }
+        .discord-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .discord-icon { width: 20px; height: 20px; fill: #ffffff; }
+        .footer-link { margin-top: 24px; font-size: 0.9rem; color: #718096; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo-area">
+            <img src="qube.png" alt="Logo" class="logo-img">
+            <span class="brand-name">ducky</span>
+        </div>
+
+        <div class="login-card">
+            <h1>Login to Ducky</h1>
+            <div class="tos-box">
+                <input type="checkbox" id="tos-check" onchange="toggleBtn()">
+                <label for="tos-check">I agree to the <a href="#tos">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.</label>
+            </div>
+            
+            <button class="discord-btn" id="login-submit" disabled onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1403071931091255396&response_type=code&redirect_uri=https%3A%2F%2Fqubebot.xyz%2Fdashboard&scope=guilds+identify'">
+                <svg class="discord-icon" viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.18,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53a105.73,105.73,0,0,0,32,16.16,77.7,77.7,0,0,0,6.74-11,68.36,68.36,0,0,1-10.61-5.07c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,71,0c.86.69,1.75,1.37,2.66,2a68.13,68.13,0,0,1-10.61,5.07,78.53,78.53,0,0,0,6.74,11,105.39,105.39,0,0,0,32-16.16C129.92,50.55,124.22,27.76,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+                Continue with Discord
+            </button>
+        </div>
+        <span class="footer-link">Need help? Contact support.</span>
+    </div>
+
+    <script>
+        function toggleBtn() {
+            document.getElementById('login-submit').disabled = !document.getElementById('tos-check').checked;
+        }
+
+        // Catch the temporary authorization code if Discord kicks back to this page
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+
+            if (code) {
+                // Save a temporary login status indicator 
+                localStorage.setItem('discord_logged_in', 'true');
+                // Kick them right over to your actual dashboard panel page!
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting... - Qubebot</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 24px;
+        }
+
+        /* Ambient Glow Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(17, 174, 142, 0.12) 0%, rgba(13, 140, 114, 0.04) 50%, rgba(0, 49, 25, 0) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Pill-Shaped Top Navigation Bar */
+        header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 12px 32px;
+            max-width: 1200px;
+            width: calc(100% - 40px);
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #11ae8e;
+        }
+
+        /* Navbar Header Spinner Container */
+        .nav-spinner-container {
+            background-color: #171717;
+            padding: 10px 28px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 98px;
+            height: 41px;
+        }
+
+        /* Core CSS Spinner Element */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Redirect Container */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .redirect-box {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .status-message {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            font-weight: 400;
+        }
+
+        /* Responsive UI safety handles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            h1 {
+                font-size: 2.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="qube.png" alt="Qube Logo" class="logo">
+            <span class="brand-name">qube</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html">Documentation</a>
+            <a href="premium.html">Qube Plus+</a>
+            <a href="#support" class="active">Support</a>
+        </nav>
+
+        <div class="nav-spinner-container">
+            <div class="spinner"></div>
+        </div>
+    </header>
+
+    <main>
+        <div class="redirect-box">
+            <h1>Redirecting...</h1>
+            <p class="status-message">You're being redirected to Qube's HQ Discord.</p>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                window.location.href = "https://discord.gg/vy6FQXmAcP";
+            }, 1500); // 1500 milliseconds = 1.5 seconds
+        });
+    </script>
+
+</body>
+</html>
